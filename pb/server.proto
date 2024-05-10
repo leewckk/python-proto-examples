@@ -1,0 +1,24 @@
+
+syntax = "proto3";
+package ota;
+
+// definition for ota image version info .
+message VersionInfo {
+  uint32 device_type = 1;
+  uint32 version = 2;
+  string file_name = 3;
+}
+
+// definition for file download
+message DownloadFileRequest {
+  uint32 device_id = 1;
+  string file_name = 2;
+}
+
+message DownloadFileResponse {
+   bytes content = 1; 
+}
+
+service FileServer {
+  rpc DownLoadFile(DownloadFileRequest) returns (stream DownloadFileResponse);
+}
