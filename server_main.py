@@ -3,7 +3,6 @@
 import logging 
 import os   
 import grpc 
-import time
 
 from concurrent import futures 
 from pb import server_pb2 , server_pb2_grpc
@@ -17,7 +16,8 @@ default_file_path = "./"
 class FileServer(server_pb2_grpc.FileServerServicer) :
 
     def GetVersionList(self, request, context):
-        # 在这里实现获取版本列表的逻辑
+
+        # mock response 
         version_info1 = server_pb2.VersionInfo(device_type=1, version=100, file_name="file1.bin")
         version_info2 = server_pb2.VersionInfo(device_type=2, version=200, file_name="file2.bin")
         response = server_pb2.GetVersionResponse(version_infos=[version_info1, version_info2])
@@ -34,12 +34,8 @@ class FileServer(server_pb2_grpc.FileServerServicer) :
                     chunk = f.read(1024)
                     if not chunk:
                         break
-                    logging.info("chunk is not null, size: %d" % (len(chunk)))
                     response = server_pb2.DownloadFileResponse(content = chunk)
                     yield response
-                # file_content = f.read()
-            # return response 
-
             logging.warning("file down load done !!!!")
 
         except Exception as e :

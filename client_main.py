@@ -18,6 +18,15 @@ if __name__ == "__main__":
     ])
 
     stub = server_pb2_grpc.FileServerStub(channel=channel)
+
+    # test GetVersionRequest
+    request = server_pb2.GetVersionRequest(device_type = 1)
+    response = stub.GetVersionList(request)
+    for version_info in response.version_infos:
+        logging.info("Device Type: %s, version: %s, filename: %s" % (version_info.device_type, version_info.version, version_info.file_name))
+
+
+    # test Download file request
     request = server_pb2.DownloadFileRequest(file_name = default_download_file, device_id = 1)
     try:
         file_contents = stub.DownLoadFile(request)
@@ -32,7 +41,3 @@ if __name__ == "__main__":
         logging.error(e)
 
 
-    request = server_pb2.GetVersionRequest(device_type = 1)
-    response = stub.GetVersionList(request)
-    for version_info in response.version_infos:
-        logging.info("Device Type: %s, version: %s, filename: %s" % (version_info.device_type, version_info.version, version_info.file_name))
