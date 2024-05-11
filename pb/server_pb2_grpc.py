@@ -39,6 +39,11 @@ class FileServerStub(object):
         Args:
             channel: A grpc.Channel.
         """
+        self.GetVersionList = channel.unary_unary(
+                '/ota.FileServer/GetVersionList',
+                request_serializer=pb_dot_server__pb2.GetVersionRequest.SerializeToString,
+                response_deserializer=pb_dot_server__pb2.GetVersionResponse.FromString,
+                _registered_method=True)
         self.DownLoadFile = channel.unary_stream(
                 '/ota.FileServer/DownLoadFile',
                 request_serializer=pb_dot_server__pb2.DownloadFileRequest.SerializeToString,
@@ -49,6 +54,12 @@ class FileServerStub(object):
 class FileServerServicer(object):
     """Missing associated documentation comment in .proto file."""
 
+    def GetVersionList(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def DownLoadFile(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -58,6 +69,11 @@ class FileServerServicer(object):
 
 def add_FileServerServicer_to_server(servicer, server):
     rpc_method_handlers = {
+            'GetVersionList': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetVersionList,
+                    request_deserializer=pb_dot_server__pb2.GetVersionRequest.FromString,
+                    response_serializer=pb_dot_server__pb2.GetVersionResponse.SerializeToString,
+            ),
             'DownLoadFile': grpc.unary_stream_rpc_method_handler(
                     servicer.DownLoadFile,
                     request_deserializer=pb_dot_server__pb2.DownloadFileRequest.FromString,
@@ -72,6 +88,33 @@ def add_FileServerServicer_to_server(servicer, server):
  # This class is part of an EXPERIMENTAL API.
 class FileServer(object):
     """Missing associated documentation comment in .proto file."""
+
+    @staticmethod
+    def GetVersionList(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ota.FileServer/GetVersionList',
+            pb_dot_server__pb2.GetVersionRequest.SerializeToString,
+            pb_dot_server__pb2.GetVersionResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def DownLoadFile(request,

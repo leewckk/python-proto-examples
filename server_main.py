@@ -16,6 +16,13 @@ default_file_path = "./"
 
 class FileServer(server_pb2_grpc.FileServerServicer) :
 
+    def GetVersionList(self, request, context):
+        # 在这里实现获取版本列表的逻辑
+        version_info1 = server_pb2.VersionInfo(device_type=1, version=100, file_name="file1.bin")
+        version_info2 = server_pb2.VersionInfo(device_type=2, version=200, file_name="file2.bin")
+        response = server_pb2.GetVersionResponse(version_infos=[version_info1, version_info2])
+        return response
+
     def DownLoadFile(self, request, context):
 
         file_name = request.file_name
@@ -23,9 +30,17 @@ class FileServer(server_pb2_grpc.FileServerServicer) :
 
         try:
             with open(os.path.join(default_file_path, file_name), 'rb') as f :
-                file_content = f.read()
-            response = server_pb2.DownloadFileResponse(content = file_content)
-            return response 
+                while True:
+                    chunk = f.read(1024)
+                    if not chunk:
+                        break
+                    logging.info("chunk is not null, size: %d" % (len(chunk)))
+                    response = server_pb2.DownloadFileResponse(content = chunk)
+                    yield response
+                # file_content = f.read()
+            # return response 
+
+            logging.warning("file down load done !!!!")
 
         except Exception as e :
 
@@ -44,9 +59,4 @@ if __name__ == "__main__":
     server.start()
     logging.warning("grpc server startup at %s" % (port))
 
-
-    try :
-        while True:
-            time.sleep(1000)
-    except KeyboardInterrupt:
-        server.stop(0)
+    server.wait_for_termination()

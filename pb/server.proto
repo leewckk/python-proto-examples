@@ -9,6 +9,15 @@ message VersionInfo {
   string file_name = 3;
 }
 
+
+message GetVersionRequest {
+  uint32 device_type = 1;
+}
+
+message GetVersionResponse {
+  repeated VersionInfo version_infos = 1;
+}
+
 // definition for file download
 message DownloadFileRequest {
   uint32 device_id = 1;
@@ -16,9 +25,10 @@ message DownloadFileRequest {
 }
 
 message DownloadFileResponse {
-   bytes content = 1; 
+  bytes content = 1;
 }
 
 service FileServer {
+  rpc GetVersionList(GetVersionRequest) returns (GetVersionResponse);
   rpc DownLoadFile(DownloadFileRequest) returns (stream DownloadFileResponse);
 }

@@ -14,7 +14,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0fpb/server.proto\x12\x03ota\"F\n\x0bVersionInfo\x12\x13\n\x0b\x64\x65vice_type\x18\x01 \x01(\r\x12\x0f\n\x07version\x18\x02 \x01(\r\x12\x11\n\tfile_name\x18\x03 \x01(\t\";\n\x13\x44ownloadFileRequest\x12\x11\n\tdevice_id\x18\x01 \x01(\r\x12\x11\n\tfile_name\x18\x02 \x01(\t\"\'\n\x14\x44ownloadFileResponse\x12\x0f\n\x07\x63ontent\x18\x01 \x01(\x0c\x32S\n\nFileServer\x12\x45\n\x0c\x44ownLoadFile\x12\x18.ota.DownloadFileRequest\x1a\x19.ota.DownloadFileResponse0\x01\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0fpb/server.proto\x12\x03ota\"F\n\x0bVersionInfo\x12\x13\n\x0b\x64\x65vice_type\x18\x01 \x01(\r\x12\x0f\n\x07version\x18\x02 \x01(\r\x12\x11\n\tfile_name\x18\x03 \x01(\t\"(\n\x11GetVersionRequest\x12\x13\n\x0b\x64\x65vice_type\x18\x01 \x01(\r\"=\n\x12GetVersionResponse\x12\'\n\rversion_infos\x18\x01 \x03(\x0b\x32\x10.ota.VersionInfo\";\n\x13\x44ownloadFileRequest\x12\x11\n\tdevice_id\x18\x01 \x01(\r\x12\x11\n\tfile_name\x18\x02 \x01(\t\"\'\n\x14\x44ownloadFileResponse\x12\x0f\n\x07\x63ontent\x18\x01 \x01(\x0c\x32\x96\x01\n\nFileServer\x12\x41\n\x0eGetVersionList\x12\x16.ota.GetVersionRequest\x1a\x17.ota.GetVersionResponse\x12\x45\n\x0c\x44ownLoadFile\x12\x18.ota.DownloadFileRequest\x1a\x19.ota.DownloadFileResponse0\x01\x62\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -23,10 +23,14 @@ if not _descriptor._USE_C_DESCRIPTORS:
   DESCRIPTOR._loaded_options = None
   _globals['_VERSIONINFO']._serialized_start=24
   _globals['_VERSIONINFO']._serialized_end=94
-  _globals['_DOWNLOADFILEREQUEST']._serialized_start=96
-  _globals['_DOWNLOADFILEREQUEST']._serialized_end=155
-  _globals['_DOWNLOADFILERESPONSE']._serialized_start=157
-  _globals['_DOWNLOADFILERESPONSE']._serialized_end=196
-  _globals['_FILESERVER']._serialized_start=198
-  _globals['_FILESERVER']._serialized_end=281
+  _globals['_GETVERSIONREQUEST']._serialized_start=96
+  _globals['_GETVERSIONREQUEST']._serialized_end=136
+  _globals['_GETVERSIONRESPONSE']._serialized_start=138
+  _globals['_GETVERSIONRESPONSE']._serialized_end=199
+  _globals['_DOWNLOADFILEREQUEST']._serialized_start=201
+  _globals['_DOWNLOADFILEREQUEST']._serialized_end=260
+  _globals['_DOWNLOADFILERESPONSE']._serialized_start=262
+  _globals['_DOWNLOADFILERESPONSE']._serialized_end=301
+  _globals['_FILESERVER']._serialized_start=304
+  _globals['_FILESERVER']._serialized_end=454
 # @@protoc_insertion_point(module_scope)
